@@ -1,5 +1,4 @@
-# Outil de projection de cash flows
-
+# Outil de projection de cash flows - Notes
 
 ## Description
 
@@ -17,16 +16,26 @@ Les enjeux sont les suivants :
 
 L'objectif sera non-seulement de mettre d'avantage l'accent sur l'expérience utilisateur que sur l'optimisation des calculs, mais également de construire un outil s'intégrant d'un framework plus général de calculs actuariels.
 
-L'outil se présentera a priori sous la forme d'une solution hébergée sur des serveurs Linux.
+L'outil se présentera a priori sous la forme d'une solution hébergée sur des serveurs Linux (pour faciliter le clustering)
 
 
 ## Architecture
 
 - Core : Framework de projection de cash flow
     - Model = Mesh
-        - Mesh = f(Mesh, CashFlow)
+        - Mesh = f(Mesh1, ..., Mesh2, CashFlow)
         - CashFlow = f(CashFlow, Const, InputPlaceholder)
     - Res = Exec(Mesh, Input)
-        - 
+        1. Split and Allocate meshes
+        2. Get results
+    
 
-##
+## Pistes de réflexion
+- Gestion de la mémoire
+- Split automatique du graph de calculs
+- Utilisation de GPUs ?
+
+## Main Steps
+- Step 1 [Benchmark] : construction de modèles de projection via full python, Ray, tensorflow et pytorch
+- Step 2 [Architecture] : Développement du framework (premier draft)
+- Step 3 [Industrialisation] : Développement pour une mise en production
